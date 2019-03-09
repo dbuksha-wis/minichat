@@ -1,12 +1,10 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
+  <div id="app" class="container">
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   data: function () {
     return {
@@ -16,9 +14,8 @@ export default {
 }
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
+<style lang="scss">
+html, body, #app {
+  height: 100%;
 }
 </style>
