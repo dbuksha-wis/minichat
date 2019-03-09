@@ -10,6 +10,7 @@ import App from '../application/App.vue'
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css'
 import router from '../application/router';
+import store from '../application/store';
 
 Vue.use(Buefy);
 
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     el,
     router,
+    store,
     render: h => h(App)
   });
 });

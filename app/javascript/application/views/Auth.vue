@@ -3,17 +3,26 @@
     <div class="column is-one-third">
       <div class="card">
         <div class="card-content">
-          <b-field label="Username">
-            <b-input maxlength="30"></b-input>
-          </b-field>
+          <form action="" class="app-form" @submit.prevent="submitData">
+            <b-field label="Username">
+              <b-input name="username"
+                       v-model="user.username"
+                       maxlength="30"
+                       required></b-input>
+            </b-field>
 
-          <b-field label="Password">
-            <b-input type="password" maxlength="30"></b-input>
-          </b-field>
+            <b-field label="Password">
+              <b-input name="password"
+                       v-model="user.password"
+                       type="password"
+                       maxlength="30"
+                       required></b-input>
+            </b-field>
 
-          <button class="button is-primary">
-            <span>Login</span>
-          </button>
+            <button class="button is-primary">
+              <span>Login</span>
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -21,14 +30,28 @@
 </template>
 
 <script>
-  export default {
-    name: 'Auth',
-    data() {
-      return {
-        hasError: true
-      }
+import { mapActions } from 'vuex';
+import { actionTypes } from "../store/modules/auth";
+
+export default {
+  name: 'Auth',
+  data() {
+    return {
+      user: {}
     }
-  }
+  },
+  methods: {
+    ...mapActions('auth', [actionTypes.SIGN_IN]),
+    submitData() {
+      this[actionTypes.SIGN_IN]({ credentials: this.user })
+        .then(() => {
+          // FIXME
+          // this.$router.push({ name: '' });
+        }).catch((error) => {
+      });
+    }
+  },
+}
 </script>
 
 <style scoped lang="scss">
