@@ -29,5 +29,8 @@ module ChatVue
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Load lib folder
+    config.paths.add Rails.root.join('lib').to_s, eager_load: true
   end
 end
