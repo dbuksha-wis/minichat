@@ -1,7 +1,9 @@
 <template>
-  <div id="app" class="container">
-    <router-view/>
-  </div>
+  <section class="section">
+    <div id="app" class="container">
+      <router-view/>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-html, body, #app {
+html, body, #app, .section {
   height: 100%;
 }
 </style>

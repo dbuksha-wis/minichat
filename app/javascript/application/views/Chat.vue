@@ -1,29 +1,31 @@
 <template>
-  <div class="card mt-3">
-    <div class="card-body">
-      <div class="card-title">
-        <h3>Public Chat</h3>
-        <hr>
+  <section class="section">
+    <div style="height: 40px"></div>
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="title is-4">Public Chat</h3>
       </div>
-      <div class="card-body">
-        <div v-for="(msg, i) in messages"
-                      :key="i">
-          <b>{{msg.sender.username}}</b>:{{ msg.message }}
+      <div class="panel-content">
+        <div class="panel-block"
+             v-for="(msg, i) in messages"
+             :key="i">
+          <b>{{msg.sender.username}}</b>: {{ msg.message }}
+          <!--TODO: add created at on the right of the block-->
         </div>
       </div>
+      <div class="panel-block">
+        <form action="" class="form" @submit.prevent="sendMessage">
+          <b-input maxlength="200"
+                   type="textarea"
+                   placeholder="Write a message..."
+                   v-model="message"></b-input>
+          <button class="button is-link is-outlined ">
+            Send message
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="card-footer">
-      <form action="" @submit.prevent="sendMessage">
-        <b-field label="Message">
-          <b-input name="message"
-                   v-model="message"
-                   maxlength="30"
-                   required></b-input>
-        </b-field>
-        <button type="submit" class="btn btn-success">Send</button>
-      </form>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -79,5 +81,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.form {
+  width: 100%;
+}
 </style>
