@@ -6,11 +6,11 @@
         <h3 class="title is-4">Public Chat</h3>
       </div>
       <div class="panel-content">
-        <div class="panel-block"
+        <div class="panel-block message-block"
              v-for="(msg, i) in messages"
              :key="i">
-          <b>{{msg.sender.username}}</b>: {{ msg.message }}
-          <!--TODO: add created at on the right of the block-->
+          <div><b>{{msg.user.username}}</b>: {{ msg.text }}</div>
+          <span class="is-small">{{ toDate(msg.created_at) }}</span>
         </div>
       </div>
       <div class="panel-block">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapState } from 'vuex';
 
 export default {
@@ -45,8 +46,6 @@ export default {
       rejected() {},
       received(data) {
         // TODO: handle an error
-        console.log('received');
-        console.log(data);
         this.messages.push(data)
       },
       disconnected() {}
@@ -62,6 +61,9 @@ export default {
     ...mapState('users', ['user']),
   },
   methods: {
+    toDate(date) {
+      return moment(date).format('MM.DD.YYYY');
+    },
     sendMessage() {
       this.$cable.perform({
         channel: 'ChatChannel',
@@ -83,5 +85,12 @@ export default {
 <style scoped lang="scss">
 .form {
   width: 100%;
+}
+.message-block {
+  display: flex;
+  justify-content: space-between;
+}
+span {
+  color: #DADADA;
 }
 </style>

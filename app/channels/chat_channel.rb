@@ -1,8 +1,7 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
     room_id = params[:room]
-
-    stream_from "chat_#{room_id}_channel" if room_id.present?
+    stream_from chat_id(room_id) if room_id.present?
   end
 
   def send_message(params)
@@ -14,23 +13,21 @@ class ChatChannel < ApplicationCable::Channel
     msg = Message.new(text: msg_text, user: current_user)
 
     if msg.save
-      payload = {
-        sender: msg.user,
-        message: msg.text
-      }
-
-      ActionCable.server.broadcast("chat_#{room_id}_channel", payload)
-      # ActionCable.server.broadcast("chat_#{room_id}_channel", msg.as_json(only: [:user, :text]))
-
+      ActionCable.server.broadcast(
+        chat_id(room_id),
+        msg.as_json(only: [:text, :created_at], methods: [:user])
+      )
     else
-      ActionCable.server.broadcast(current_user, msg.errors)
       # TODO: broadcast to user about failure
     end
   end
 
   def unsubscribed
-    room_id = params['room']
+  end
 
-    # Any cleanup needed when channel is unsubscribed
+  private
+
+  def chat_id(room)
+    "chat_#{room}_channel"
   end
 end
