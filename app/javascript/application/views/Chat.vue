@@ -27,7 +27,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 
 export default {
@@ -51,11 +50,14 @@ export default {
       disconnected() {}
     }
   },
-  computed: {
-    ...mapState('users', ['user']),
+  created() {
+    this.$cable._connect(`ws://localhost:5000/cable?accessToken=${localStorage.getItem('jwt')}`)
   },
   mounted() {
     this.$cable.subscribe({ channel: 'ChatChannel', room: 'public' });
+  },
+  computed: {
+    ...mapState('users', ['user']),
   },
   methods: {
     sendMessage() {

@@ -791,9 +791,9 @@ acorn@^6.0.5:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
 
-actioncable-vue@^1.2.4:
+"actioncable-vue@https://github.com/dbuksha-wis/actioncable-vue":
   version "1.2.4"
-  resolved "https://registry.yarnpkg.com/actioncable-vue/-/actioncable-vue-1.2.4.tgz#8df6a244c2ba04847295f07575b3c7428f000e76"
+  resolved "https://github.com/dbuksha-wis/actioncable-vue#f2795e40b06c1cd6fcd81fdc2d4ab9da76238fd4"
   dependencies:
     actioncable "^5.2.2"
 

@@ -19,7 +19,7 @@ import store from '../application/store';
 Vue.use(ActionCableVue, {
   debug: true,
   debugLevel: 'error',
-  connectionUrl: `ws://localhost:5000/cable?accessToken=${localStorage.getItem('jwt')}`,
+  connectImmediately: false,
 });
 Vue.use(Buefy);
 
