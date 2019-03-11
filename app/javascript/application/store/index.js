@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 
 // Modules
 import auth from './modules/auth';
-import users from './modules/users'
+import users from './modules/users';
+import chatMessages from './modules/chatMessages';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ const store = new Vuex.Store({
   modules: {
     auth,
     users,
+    chatMessages,
   }
 });
 
