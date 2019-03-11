@@ -4,7 +4,7 @@ class Auth
   class << self
     def encode(payload)
       # set token expired time
-      payload[:exp] = 2.hours.from_now.to_i
+      payload[:exp] = 22.hours.from_now.to_i
 
       JWT.encode payload, jwt_secret, ALGORITHM
     end

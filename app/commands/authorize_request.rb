@@ -1,10 +1,10 @@
 class AuthorizeRequest
   prepend SimpleCommand
 
-  attr_reader :headers
+  attr_reader :payload
 
-  def initialize(headers = {})
-    @headers = headers
+  def initialize(payload = {})
+    @payload = payload
   end
 
   def call
@@ -21,8 +21,10 @@ class AuthorizeRequest
   end
 
   def auth_header
-    if headers['Authorization'].present?
-      return headers['Authorization'].split(' ').last
+    return payload if payload.is_a?(String)
+
+    if payload['Authorization'].present?
+      return payload['Authorization'].split(' ').last
     else
       errors.add(:token, 'Token is not provided')
     end

@@ -1,9 +1,9 @@
 <template>
   <div class="columns">
-    <div class="column is-one-third">
+    <div class="column is-one-third-desktop is-two-thirds-tablet is-half-mobile">
       <div class="card">
         <div class="card-content">
-          <form action="" class="app-form" @submit.prevent="submitData">
+          <form action="" @submit.prevent="submitData">
             <b-field label="Username">
               <b-input name="username"
                        v-model="user.username"
@@ -45,9 +45,9 @@ export default {
     submitData() {
       this[actionTypes.SIGN_IN]({ credentials: this.user })
         .then(() => {
-          // FIXME
-          // this.$router.push({ name: '' });
+          this.$router.push({ name: 'ChatPage' });
         }).catch((error) => {
+        // FIXME: add showing errors
       });
     }
   },
