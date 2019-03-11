@@ -3,9 +3,11 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.2",
+    "actioncable-vue": "^1.2.4",
     "axios": "^0.18.0",
     "buefy": "^0.7.3",
     "jsona": "^1.3.0",
+    "jwt-decode": "^2.2.0",
     "vue": "^2.6.8",
     "vue-loader": "^15.7.0",
     "vue-router": "^3.0.2",
