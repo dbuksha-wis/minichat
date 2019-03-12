@@ -9,7 +9,6 @@ import Chat from './views/Chat'
 Vue.use(VueRouter);
 
 function checkIsLoggedIn(to, from, next) {
-  // TODO: add verify token
   if (!store.getters['auth/loggedIn']) {
     next({ name: 'Auth' });
   } else {
@@ -27,7 +26,7 @@ const router = new VueRouter({
     },
     {
       path: '/',
-      name: 'ChatPage',
+      name: 'Home',
       component: Chat,
       meta: { pageTitle: 'Home' },
       beforeEnter: checkIsLoggedIn,

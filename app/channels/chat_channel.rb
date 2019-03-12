@@ -4,11 +4,10 @@ class ChatChannel < ApplicationCable::Channel
     stream_from chat_id(room_id) if room_id.present?
   end
 
+  # FIXME: move it to the :create message call
   def send_message(params)
     room_id   = params['room']
     msg_text   = params['message']
-
-    raise 'No message!' if msg_text.blank?
 
     msg = Message.new(text: msg_text, user: current_user)
 

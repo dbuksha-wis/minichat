@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   namespace :api do
     post 'sign_in', to: 'auth#create'
     post 'sign_up', to: 'users#create'
-    get 'auth', to: 'auth#show'
+    get 'current_user', to: 'auth#show'
 
-    resources :messages, only: [:index]
+    resources :messages, only: [:index, :create]
   end
 
   root to: 'spa#index'

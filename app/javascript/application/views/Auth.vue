@@ -45,7 +45,7 @@ export default {
     submitData() {
       this[actionTypes.SIGN_IN]({ credentials: this.user })
         .then(() => {
-          this.$router.push({ name: 'ChatPage' });
+          this.$router.push({ name: 'Home' });
         }).catch((error) => {
         // FIXME: add showing errors
       });

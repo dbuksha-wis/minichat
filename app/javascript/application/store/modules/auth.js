@@ -1,37 +1,29 @@
-import jwtDecode from 'jwt-decode';
-
 import instance from '../instance';
-import {
-  mutationTypes as usersMutations,
-} from './users';
 
 const endpoints = {
   CREATE: '/sign_in',
+  CURRENT_USER: '/current_user'
 };
 
 export const actionTypes = {
   SIGN_IN: 'SIGN_IN',
   SIGN_OUT: 'SIGN_OUT',
+  GET_CURRENT_USER: 'GET_CURRENT_USER',
 };
 
 export const mutationTypes = {
   SET_JWT: 'SET_JWT',
   SET_IS_LOGGED_IN: 'SET_IS_LOGGED_IN',
   CLEAR_JWT: 'CLEAR_JWT',
+  SET_CURRENT_USER: 'SET_CURRENT_USER',
 };
-
-function decodeJWT(token) {
-  let payload = jwtDecode(token);
-  delete payload.exp;
-
-  return payload;
-}
 
 export default {
   namespaced: true,
 
   state: {
-    isLoggedIn: !!localStorage.getItem('jwt'),
+    isLoggedIn: !!localStorage.getItem('accessToken'),
+    currentUser: null,
   },
 
   getters: {
@@ -40,12 +32,12 @@ export default {
     },
   },
   actions: {
-    [actionTypes.SIGN_IN]({ commit }, { credentials }) {
+    [actionTypes.SIGN_IN]({ dispatch, commit }, { credentials }) {
       return instance.post(endpoints.CREATE, credentials)
         .then(({ data }) => {
           commit(mutationTypes.SET_JWT, data.token);
           commit(mutationTypes.SET_IS_LOGGED_IN, true);
-          commit(`users/${usersMutations.SET_USER}`, { user: decodeJWT(data.token) }, { root: true });
+          dispatch(actionTypes.GET_CURRENT_USER);
 
           return Promise.resolve();
         });
@@ -56,11 +48,22 @@ export default {
       commit(mutationTypes.CLEAR_JWT);
       return Promise.resolve();
     },
+    [actionTypes.GET_CURRENT_USER]({ dispatch, commit }) {
+      return instance.get(endpoints.CURRENT_USER)
+        .then(data => {
+          commit(mutationTypes.SET_CURRENT_USER, data);
+          return Promise.resolve();
+        })
+        .catch(error => {
+          commit(mutationTypes.SET_CURRENT_USER, null);
+          return Promise.resolve(error);
+        });
+    }
   },
 
   mutations: {
-    [mutationTypes.SET_JWT](state, jwt) {
-      localStorage.setItem('jwt', jwt);
+    [mutationTypes.SET_JWT](state, token) {
+      localStorage.setItem('accessToken', token);
     },
 
     [mutationTypes.SET_IS_LOGGED_IN](state, isLoggedIn) {
@@ -68,7 +71,10 @@ export default {
     },
 
     [mutationTypes.CLEAR_JWT]() {
-      localStorage.removeItem('jwt');
+      localStorage.removeItem('accessToken');
     },
+    [mutationTypes.SET_CURRENT_USER](state, user) {
+      state.currentUser = user;
+    }
   },
 };
