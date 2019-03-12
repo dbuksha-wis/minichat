@@ -21,6 +21,7 @@ const store = new Vuex.Store({
 instance.interceptors.response.use(
   response => response,
   error => {
+    console.log(error);
     if (error.response.status === 401) {
       store.commit('auth/SET_IS_LOGGED_IN', false);
       store.commit('auth/CLEAR_JWT');

@@ -29,7 +29,7 @@
 import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
 
-import { actionTypes as chatActionTypes } from '../store/modules/chatMessages';
+import { actionTypes as chatActions } from '../store/modules/chatMessages';
 
 export default {
   name: "Chat",
@@ -42,19 +42,19 @@ export default {
   channels: {
     ChatChannel: {
       connected() {},
-      rejected() {},
+      rejected() {
+      },
       received(data) {
-        // TODO: handle an error
         this.messages.push(data)
       },
       disconnected() {}
     }
   },
   created() {
-    this.$cable._connect(`ws://localhost:5000/cable?accessToken=${localStorage.getItem('jwt')}`)
+    this.$cable._connect(`ws://localhost:5000/cable?accessToken=${localStorage.getItem('accessToken')}`)
   },
   mounted() {
-    this[chatActionTypes.INDEX]()
+    this[chatActions.INDEX]()
       .then((data) => {
         this.messages = data;
       });
@@ -64,20 +64,13 @@ export default {
     ...mapState('users', ['user']),
   },
   methods: {
-    ...mapActions('chatMessages', [chatActionTypes.INDEX]),
+    ...mapActions('chatMessages', [chatActions.INDEX, chatActions.CREATE]),
     toDate(date) {
       return moment(date).format('MM.DD.YYYY');
     },
     sendMessage() {
-      this.$cable.perform({
-        channel: 'ChatChannel',
-        action: 'send_message',
-        data: {
-          message: this.message,
-          room: 'public',
-        }
-      });
-      this.message = '';
+      this[chatActions.CREATE]({ message: { text: this.message }, room: 'public' })
+        .then(() => { this.message = '' });
     },
   },
   destroyed() {
