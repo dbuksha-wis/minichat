@@ -34,6 +34,11 @@ export default {
     isLoggedIn: !!localStorage.getItem('jwt'),
   },
 
+  getters: {
+    loggedIn(state) {
+      return state.isLoggedIn;
+    },
+  },
   actions: {
     [actionTypes.SIGN_IN]({ commit }, { credentials }) {
       return instance.post(endpoints.CREATE, credentials)
