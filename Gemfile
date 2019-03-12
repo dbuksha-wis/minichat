@@ -44,6 +44,10 @@ group :development, :test do
   gem 'awesome_print'
   # A runtime dev console and IRB alternative with powerful introspection capabilities
   gem 'pry-rails'
+  # A library for setting up Ruby objects as test data
+  gem 'factory_bot_rails'
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker'
 end
 
 group :development do
@@ -51,6 +55,20 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
 
+end
+
+group :test do
+  # Testing framework for Rails 3.x, 4.x and 5.x.
+  gem 'rspec-rails'
+  # Simple one-liner tests for common Rails functionality
+  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'rails-controller-testing'
+  # Strategies for cleaning databases in Ruby
+  gem 'database_cleaner'
+  # Code coverage with a powerful configuration library and automatic merging of coverage across test suites
+  gem 'simplecov', require: false
+  # RSpec progress bar formatter
+  gem 'fuubar'
 end
 
 
