@@ -3,10 +3,11 @@ class ChatChannel < ApplicationCable::Channel
 
   def subscribed
     room_id = params[:room]
-    stream_from chat_channel(room_id) if room_id.present?
+    reject unless room_id.present?
+
+    stream_from chat_channel(room_id)
   end
 
   def unsubscribed
   end
-
 end

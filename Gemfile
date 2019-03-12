@@ -48,6 +48,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker'
+  gem 'action-cable-testing'
 end
 
 group :development do
