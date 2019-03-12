@@ -1,24 +1,38 @@
-# README
+## Minichat
+Simple public chat using Ruby on Rails and Vue.js.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Requirements
 
-Things you may want to cover:
+* Ruby v.2.6.1
+* Yarn
+* Foreman (optional)
 
-* Ruby version
+### Getting started
+```
+  git clone git@github.com:dbuksha-wis/minichat.git && cd ./minichat
+  
+  bundle install
+  yarn install
+```
 
-* System dependencies
+### Run tests
+```
+   bundle exec rspec spec
+```
 
-* Configuration
+### Run application
 
-* Database creation
+You can use Foreman to start the app:
+```
+  foreman start
+```
 
-* Database initialization
+Or you can start by yourself:
 
-* How to run the test suite
+```
+  bin/rails s
+  
+  bin/webpack-dev-server
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Open ` http://127.0.0.1:3000`

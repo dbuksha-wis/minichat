@@ -51,7 +51,7 @@ export default {
     }
   },
   created() {
-    this.$cable._connect(`ws://localhost:5000/cable?accessToken=${localStorage.getItem('accessToken')}`)
+    this.$cable._connect(`ws://localhost:3000/cable?accessToken=${localStorage.getItem('accessToken')}`)
   },
   mounted() {
     this[chatActions.INDEX]()
