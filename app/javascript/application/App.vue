@@ -19,7 +19,7 @@ export default {
   methods: {
     ...mapActions('auth', [authActions.GET_CURRENT_USER]),
     isAuthIndexPage() {
-      return !!this.$router.currentRoute.matched.find(route => route.name === 'Auth');
+      return !!this.$router.currentRoute.matched.find(route => route.name === 'AuthIndex');
     },
   },
   mounted() {
@@ -28,7 +28,7 @@ export default {
         if (this.isAuthIndexPage()) this.$router.push({ name: 'Home' });
       })
       .catch(() => {
-        if (!this.isAuthIndexPage()) this.$router.push({ name: 'Auth' });
+        if (!this.isAuthIndexPage()) this.$router.push({ name: 'AuthSignIn' });
       })
   }
 }

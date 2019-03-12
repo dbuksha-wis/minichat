@@ -24,7 +24,9 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       store.commit('auth/SET_IS_LOGGED_IN', false);
       store.commit('auth/CLEAR_JWT');
-      router.push({ name: 'Auth' });
+
+      let not_auth = !router.currentRoute.matched.find(route => route.name === 'AuthIndex');
+      if(not_auth) router.push({ name: 'AuthSignIn'});
     }
     return Promise.reject(error);
   },
