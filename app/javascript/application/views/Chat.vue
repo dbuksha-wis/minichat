@@ -29,6 +29,7 @@
 import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
 
+import { dataFormatter } from '../dataFormatter';
 import { actionTypes as chatActions } from '../store/modules/chatMessages';
 
 export default {
@@ -45,7 +46,7 @@ export default {
       rejected() {
       },
       received(data) {
-        this.messages.push(data)
+        this.messages.push(dataFormatter.deserialize(data))
       },
       disconnected() {}
     }

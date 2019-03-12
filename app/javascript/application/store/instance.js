@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { Jsona } from 'jsona';
 
-const dataFormatter = new Jsona();
+import { dataFormatter } from '../dataFormatter';
 
 const instance = axios.create({
   baseURL: '/api',
