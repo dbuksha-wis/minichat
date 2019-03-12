@@ -3,7 +3,7 @@ RSpec.describe Api::AuthController do
     before(:each) { authenticated_header(request, payload) }
     before(:each) { get :show }
 
-    let (:user) {create(:user)}
+    let (:user) { create(:user) }
 
     context 'success' do
       let(:payload) { { user_id: user.id, exp: 1.hour.from_now.to_i } }
@@ -15,7 +15,7 @@ RSpec.describe Api::AuthController do
     context 'error' do
       let(:payload) { { user_id: user.id, exp: 1.hour.before.to_i} }
 
-      it { expect(response).to have_http_status(401) }
+      it { expect(response).to have_http_status(:unauthorized) }
       it { expect(json[:error]).to eql({ 'token' => 'Token is expired' }) }
     end
   end
